@@ -119,6 +119,13 @@ function contactExists(firstName, lastName) {
     return addressBookArray.some(contact => contact.firstName == firstName && contact.lastName == lastName);
 }
 
+function addContact(contact) {
+    if (!contactExists(contact.firstName, contact.lastName)) 
+        addressBookArray.push(contact);
+    else 
+        throw "Contact is Present in the Address Book";
+}
+
 function editContact(firstName, lastName, property, newValue) {
     if (contactExists(firstName, lastName)) {
         switch (property) {
@@ -162,14 +169,12 @@ function getCountOfContacts(count) {
     return count;
 }
 
-try {
-    addressBookArray.push(new Contact("Shubham", "Chaudhari", "#3ac910", "Mumbai", "Maharashtra", "560 043", "91 9405693655", "shubh@gmail.com"));
-} catch (e) {
-    console.error(e);
-}
+let firstContact = new Contact("Shubham", "Chaudhari", "#3ac910", "Mumbai", "Maharashtra", "560 043", "91 9456986522", "shubh@gmail.com");
+let secondContact = new Contact("Kriti", "Sawant", "#6ac810", "Pune", "Maharashtra", "123 569", "91 9898989897", "ks@gmail.com");
 
 try {
-    addressBookArray.push(new Contact("Kriti", "Sawant", "#6ac810", "Pune", "Maharashtra", "123 567", "91 9456896236", "ks@gmail.com"));
+    addressBookArray.push(firstContact);
+    addressBookArray.push(secondContact);
 } catch (e) {
     console.error(e);
 }
@@ -177,7 +182,7 @@ try {
 console.log(addressBookArray);
 
 console.log("\nAfter Editing Contact");
-editContact("Shubham", "Chaudhari", "city", "Maharashtra");
+editContact("Shubham", "Chaudhari", "Mumbai", "Maharashtra");
 console.log(addressBookArray);
 
 console.log("\nCount of Contacts : " + addressBookArray.reduce(getCountOfContacts, 0));
@@ -187,3 +192,12 @@ deleteContact("Shubham", "Chaudhari");
 console.log(addressBookArray);
 
 console.log("\nCount of Contacts : " + addressBookArray.reduce(getCountOfContacts, 0));
+
+console.log("\nAdding Duplicate Contact");
+try {
+    addContact(secondContact);
+} catch (e) {
+    console.error(e);
+}
+console.log(addressBookArray);
+Footer
